@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../constants/colors';
 import Title from '../components/ui/Title';
 import Card from '../components/ui/Card';
 import InstructionText from '../components/ui/InstructionText';
+
 
 interface StartGameScreenProps {
   onPickNumber: (number: number) => void;
@@ -48,10 +49,14 @@ function StartGameScreen(props: StartGameScreenProps) {
         />
         <View style={styles.buttonsContainer}>
           <View style={styles.buttons}>
-            <PrimaryButton name="Reset" onPress={resetInputHandler} />
+            <PrimaryButton onPress={resetInputHandler}>
+              <Text style={styles.buttonText} >Reset</Text>
+            </PrimaryButton>
           </View>
           <View style={styles.buttons}>
-            <PrimaryButton name="Confirm" onPress={confirmInputHandler} />
+            <PrimaryButton onPress={confirmInputHandler}>
+              <Text style={styles.buttonText} >Confirm</Text>
+            </PrimaryButton>
           </View>
         </View>
       </Card>
@@ -66,21 +71,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   numberInput: {
+    fontFamily: "Poppins-Regular",
     height: 60,
     width: 50,
-    fontSize: 32,
+    fontSize: 28,
     borderBottomColor: Colors.accent500,
     color: Colors.accent500,
     borderBottomWidth: 2,
-    marginVertical: 8,
-    fontWeight: 'bold',
+    marginVertical: 10,
     textAlign: 'center',
+    paddingTop: 5
   },
   buttonsContainer: {
     flexDirection: 'row',
   },
   buttons: {
     flex: 1,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 16,
+    fontFamily: "Poppins-Regular"
   },
 });
 

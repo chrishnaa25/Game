@@ -13,12 +13,13 @@ export default Title;
 
 const styles = StyleSheet.create({
   title: {
+    
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: "Poppins-Regular", 
     color: 'white',
     textAlign: 'center',
     borderWidth: 2,
     borderColor: 'white',
-    padding: 12,
+    padding: 12,  
   },
 });

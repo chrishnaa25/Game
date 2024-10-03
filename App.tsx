@@ -5,22 +5,31 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native';
-import StartGameScreen from './screens/StartGameScreen';
+import StartGameScreen from './screens/StartGameScreen'; 
 import LinearGradient from 'react-native-linear-gradient';
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/colors';
 import GameOverScreen from './screens/GameOverScreen';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function App() {
-  const [userNumber, setUserNumber] = useState(0);
+  const [userNumber, setUserNumber] = useState<null | number>(null);
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessedRounds, setGuessedRounds] = useState(0);
+
   function pickedNumberHandler(pickedNumber: number) {
     setUserNumber(pickedNumber);
     setGameIsOver(false);
   }
 
-  function gameOverHandler() {
+  function gameOverHandler(numOfRounds: number) {
     setGameIsOver(true);
+    setGuessedRounds(numOfRounds)
+  }
+
+  function startNewGameHandler () {
+    setUserNumber(null)
+    setGuessedRounds(0)
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
@@ -32,11 +41,12 @@ function App() {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />;
+    screen = <GameOverScreen startNewGame={startNewGameHandler} roundsNumber={guessedRounds} guessedNumber={userNumber} />;
   }
 
   return (
     <>
+    <SafeAreaProvider style = {{flex: 1}}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
@@ -53,6 +63,7 @@ function App() {
           <SafeAreaView style={styles.appContainer}>{screen}</SafeAreaView>
         </ImageBackground>
       </LinearGradient>
+      </SafeAreaProvider>
     </>
   );
 }
@@ -60,6 +71,7 @@ function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
+    
   },
   backgroundImage: {
     opacity: 0.15,
